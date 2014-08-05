@@ -131,6 +131,34 @@ extern UIViewController *UnityGetGLViewController();
     [popupAd load];
 }
 
+- (void)loadAndPresentAdWithInstanceId:(NSString*)instanceID
+{
+    ASPopupAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
+    if (!popupAd) {
+        NSLog(@"AppSponsorPlugin: Failed because a popupAd was never created.");
+        return;
+    }
+    [popupAd loadAndPresentAd];
+}
+
+- (void)loadAndPresentAdWithInstanceId:(NSString*)instanceID timeout:(NSString*)timeoutString
+{
+    ASPopupAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
+    if (!popupAd) {
+        NSLog(@"AppSponsorPlugin: Failed because a popupAd was never created.");
+        return;
+    }
+    CGFloat timeout = [timeoutString floatValue];
+    if (timeout == 0)
+    {
+        [popupAd loadAndPresentAd];
+    }
+    else
+    {
+        [popupAd loadAndPresentAdWithTimeout:timeout];
+    }
+}
+
 /*
  * Presents the ad onto the current top ViewController
  * When ad is done being presented (closed), the ad is destroyed.
@@ -365,6 +393,18 @@ extern "C" {
     void _Load(const char *instanceId) {
         AppSponsorPlugin *appSponsorPlugin = [AppSponsorPlugin pluginSharedInstance];
         [appSponsorPlugin loadAdWithInstanceId:CreateNSString(instanceId)];
+    }
+    
+    void _LoadAndPresentAd(const char *instanceId)
+    {
+        AppSponsorPlugin *appSponsorPlugin = [AppSponsorPlugin pluginSharedInstance];
+        [appSponsorPlugin loadAndPresentAdWithInstanceId:CreateNSString(instanceId)];
+    }
+    
+	void _LoadAndPresentAdWithTimeout(const char *instanceId, const char *timeoutSeconds)
+    {
+        AppSponsorPlugin *appSponsorPlugin = [AppSponsorPlugin pluginSharedInstance];
+        [appSponsorPlugin loadAndPresentAdWithInstanceId:CreateNSString(instanceId) timeout:CreateNSString(timeoutSeconds)];
     }
     
     void _PresentAd(const char *instanceId) {

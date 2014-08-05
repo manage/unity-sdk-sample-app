@@ -81,7 +81,19 @@ public class AppSponsorPlugin : MonoBehaviour {
 	{
 		AppSponsorMobilePlugin.Load(instanceId);
 	}
-	
+
+	// Load and display ad for the user.
+	public void LoadAndPresentAd()
+	{
+		AppSponsorMobilePlugin.LoadAndPresentAd(instanceId);
+	}
+
+	// Load and display ad for the user. Loading will either succeed in time or fail.
+	public void LoadAndPresentAd(float timeoutSeconds)
+	{
+		AppSponsorMobilePlugin.LoadAndPresentAdWithCustomTimeout(instanceId, timeoutSeconds);
+	}
+
 	// Whether is Ad ready to be presented. Turns to true after DidCacheInterstitial().
 	public bool IsReady()
 	{

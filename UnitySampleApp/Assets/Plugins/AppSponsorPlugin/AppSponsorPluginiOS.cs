@@ -12,6 +12,10 @@ public class AppSponsorPluginiOS {
 	[DllImport("__Internal")]
 	private static extern void _Load(string instanceId);
 	[DllImport("__Internal")]
+	private static extern void _LoadAndPresentAd(string instanceId);
+	[DllImport("__Internal")]
+	private static extern void _LoadAndPresentAdWithTimeout(string instanceId, string timeoutSeconds);
+	[DllImport("__Internal")]
 	private static extern void _PresentAd(string instanceId);
 	[DllImport("__Internal")]
 	private static extern bool _IsReady(string instanceId);
@@ -38,6 +42,16 @@ public class AppSponsorPluginiOS {
 	public static void Load(string instanceId)
 	{
 		_Load(instanceId);
+	}
+
+	public static void LoadAndPresentAd(string instanceId)
+	{
+		_LoadAndPresentAd(instanceId);
+	}
+
+	public static void LoadAndPresentAdWithCustomTimeout(string instanceId, float timeoutSeconds)
+	{
+		_LoadAndPresentAdWithTimeout(instanceId, "" + timeoutSeconds);
 	}
 	
 	public static void PresentAd(string instanceId)
