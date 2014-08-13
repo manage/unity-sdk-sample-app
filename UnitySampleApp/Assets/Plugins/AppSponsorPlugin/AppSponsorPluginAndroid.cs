@@ -33,7 +33,20 @@ public class AppSponsorPluginAndroid {
 		AndroidJavaObject pluginInstance = AppSponsorPluginAndroid.ResolveInstance(instanceId);
 		pluginInstance.Call("load");
 	}
+
+	public static void LoadAndPresentAd(string instanceId)
+	{
+		AndroidJavaObject pluginInstance = AppSponsorPluginAndroid.ResolveInstance(instanceId);
+		pluginInstance.Call("loadAndPresentAd");
+	}
 	
+	public static void LoadAndPresentAdWithCustomTimeout(string instanceId, float timeoutSeconds)
+	{
+		AndroidJavaObject pluginInstance = AppSponsorPluginAndroid.ResolveInstance(instanceId);
+		string timeout = "" + timeoutSeconds;
+		pluginInstance.Call("loadAndPresentAdWithTimeout", new object[1] {timeout});
+	}
+
 	public static void PresentAd(string instanceId)
 	{
 		AndroidJavaObject pluginInstance = AppSponsorPluginAndroid.ResolveInstance(instanceId);
