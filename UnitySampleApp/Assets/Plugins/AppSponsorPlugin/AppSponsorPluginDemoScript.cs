@@ -12,7 +12,7 @@ public class AppSponsorPluginDemoScript : MonoBehaviour {
 	
 	void OnClick()
 	{
-		plugin.LoadAndPresentAd(100000.0f);
+		plugin.LoadAndPresentAd(10000.0f);
 	}
 	
 	void ConsoleLog(string text)
