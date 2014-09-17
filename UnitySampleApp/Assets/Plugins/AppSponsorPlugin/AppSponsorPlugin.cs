@@ -10,6 +10,8 @@ using UnityEngine;
 using AppSponsorMobilePlugin = AppSponsorPluginAndroid;
 #elif UNITY_IPHONE
 using AppSponsorMobilePlugin = AppSponsorPluginiOS;
+#else
+#error AppSponsor Unity plugin only supports iOS and Android currently. Please choose one of the above in File->Build settings->Platform
 #endif
 
 public class AppSponsorPlugin : MonoBehaviour {
