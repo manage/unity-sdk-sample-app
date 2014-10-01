@@ -13,8 +13,6 @@ Requirements and Dependencies:
 
 The SDK for Unity is available once you [sign up](https://appsponsor.com/user/registration).  The Manage SDK includes everything you need to serve full screen interstitial, video, and playable ad units.
 
-The SDK for Unity can be downloaded [here](https://appsponsor.com/downloads/appsponsorsdk_unity_3_1.zip).
-
 For an example, please see our [sample app](https://github.com/manage/unity-sdk-sample-app).
 
 ###2. Import the Manage Publisher plugin into your project  
