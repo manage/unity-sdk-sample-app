@@ -13,6 +13,8 @@ Requirements and Dependencies:
 
 The SDK for Unity is available once you [sign up](https://appsponsor.com/user/registration).  The Manage SDK includes everything you need to serve full screen interstitial, video, and playable ad units.
 
+The SDK for Unity can be downloaded [here](https://appsponsor.com/downloads/appsponsorsdk_unity_3_1.zip).
+
 For an example, please see our [sample app](https://github.com/manage/unity-sdk-sample-app).
 
 ###2. Import the Manage Publisher plugin into your project  
@@ -55,9 +57,7 @@ Please update **Plugins/Android/AndroidManifest.xml** to add the necessary Manag
 
 ###4. Add iOS support
 
-Please download our iOS SDK from the [iOS install guide](https://appsponsor.com/site/page/?view=install_iOS) section, `unzip it` and `add` *AppSponsorSDK.embeddedframework* into your project. Then add/set these frameworks as **Optional**:
-
-And please add these frameworks:
+Please download our iOS SDK from the [iOS install guide](https://appsponsor.com/site/page/?view=install_iOS) section, `unzip it` and `add` *AppSponsorSDK.embeddedframework* into your project. Then add/set these frameworks:
 
 1. libz.dylib
 2. libstdc++.dylib
@@ -88,8 +88,8 @@ Declare the `AppSponsorPlugin` component class:
 
 ```
 public class MyDemoApp : MonoBehaviour {
-	
-	AppSponsorPlugin plugin;
+    
+    AppSponsorPlugin plugin;
 
     /* Flag if using Rewarded Ad */
     public bool isRewarded;
@@ -126,7 +126,17 @@ RegisterEvents();
 ###5.1. Improve Ad Targeting by setting non PII user data:
 
 ```
-
+plugin.SetCity("");
+plugin.SetUCity("");
+plugin.SetCountry("");
+plugin.SetRegion("")
+plugin.SetMetro("")
+plugin.SetZip("")
+plugin.SetLongitude("")
+plugin.SetLatitude("")
+plugin.SetGender("");
+plugin.SetYob("")
+plugin.SetKeywords("");
 ```
 
 If you would like to pre cache your ads follow steps in section 5.2.  Otherwise, if you would like to load ads synchronously for immediate presentation of an ad follow steps in section 5.3:
@@ -176,31 +186,31 @@ public void RegisterEvents() {
 }
 
 public void HandleDidFailToLoad(string message) {
-	Debug.Log("DidFailToLoad, message:" + message);
+    Debug.Log("DidFailToLoad, message:" + message);
 }
 
 public void HandleWillAppear() {
-	Debug.Log("WillAppear");
+    Debug.Log("WillAppear");
 }
 
 public void HandleWillDisappear(string reason) {
-	Debug.Log("WillDisappear, message: " + reason);
+    Debug.Log("WillDisappear, message: " + reason);
 }
-	
+    
 public void HandleRewardedAdFinished() {
-	Debug.Log("RewardedAdFinished");
+    Debug.Log("RewardedAdFinished");
 }
 
 public void HandleDidCacheInterstitial(){
-	Debug.Log("DidCacheInterstitial");
-	
-	if (plugin.IsReady()) {
-			Debug.Log("Presenting Popup Ad");
-			plugin.PresentAd();
-	}
-	else {
-	    Debug.Log("Popup Ad Is Not ready");
-	}
+    Debug.Log("DidCacheInterstitial");
+    
+    if (plugin.IsReady()) {
+            Debug.Log("Presenting Popup Ad");
+            plugin.PresentAd();
+    }
+    else {
+        Debug.Log("Popup Ad Is Not ready");
+    }
 }
 ```
 
