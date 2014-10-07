@@ -18,7 +18,7 @@ SDK Version: 3.1
 * Android version 2.3 or greater
 * Google Play Services
 * Unity 4.x
-* 
+ 
 ###3.1 Change Log:
 ----------------------------------
 * minor bug fixes
