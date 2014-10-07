@@ -1,7 +1,7 @@
-##Manage Unity/Android SDK
+##Manage Unity SDK
 
 
-This is the Manage Publisher Mobile Ads SDK for Unity/Android
+This is the Manage Publisher Mobile Ads SDK for Unity Android/iOS
 
 Modified: 2014/10
 SDK Version: 3.1
@@ -16,15 +16,17 @@ SDK Version: 3.1
 ----------------------------------
 * A Manage zone ID
 * Android version 2.3 or greater
+* iOS version 6.0 or greater
+* Runs only devices with iOS 6.0 or higher
 * Google Play Services
 * Unity 4.x
- 
+
 ###3.1 Change Log:
 ----------------------------------
 * minor bug fixes
 * Added loadAndPresent()
 * Bundled Google Play Services libraries
-
+* iOS 8 Support
 
 ###Sample App:
 ----------------------------------
