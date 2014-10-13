@@ -86,11 +86,11 @@ public class AppSponsorPluginDemoScript : MonoBehaviour {
 	public void HandleDidCacheInterstitial()
 	{
 		ConsoleLog("DidCacheInterstitial");
-		if (plugin.IsReady()) 
+		/*if (plugin.IsReady()) 
 		{
 			ConsoleLog("Presenting Popup Ad");
 			plugin.PresentAd();
 		}
-		else ConsoleLog("Popup Ad Is Not ready");
+		else ConsoleLog("Popup Ad Is Not ready");*/
 	}
 }

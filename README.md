@@ -1,26 +1,45 @@
-unity-sdk-sample-app
-======================
+##Manage Unity SDK
 
-Sample Unity AppSponsor SDK App
 
-This app is a simple implementation of the basic display ad and rewarded ad functionality available in the AppSponsor Unity SDK.
+This is the Manage Publisher Mobile Ads SDK for Unity Android/iOS
 
-Contact support@appsponsor.com if you have any questions.
+Modified: 2014/10
+SDK Version: 3.1
 
-## Installation
+###Contains:
+----------------------------------
+* Manage Unity SDK Frameworks
+* Google Play Services
+* Sample App
 
-### Android
+###Requirements:
+----------------------------------
+* A Manage zone ID
+* Android version 2.3 or greater
+* iOS version 6.0 or greater
+* Runs only devices with iOS 6.0 or higher
+* Google Play Services
+* Unity 4.x
 
-1. Open project in Unity 4.x.
-2. Open menu File->Build Settings, select Android platform and confirm selection by pressing Switch Platform button.
-3. Press Build and Run to start the project.
+###3.1 Change Log:
+----------------------------------
+* minor bug fixes
+* Added loadAndPresent()
+* Bundled Google Play Services libraries
+* iOS 8 Support
 
-### iOS
+###Sample App:
+----------------------------------
+This app is a simple implementation of the basic display ad and rewarded ad functionality available in the
+Manage sdk.
 
-1. Open project in Unity 4.x.
-2. Open menu File->Build Settings, select iOS platform and confirm selection by pressing Switch Platform button.
-3. Press Build and Run to deploy Xcode project and select appropriate location for it in the presented popup dialog.
-4. Wait until the deployment is completed and open project in Xcode.
-5. Get the latest version of AppSponsor iOS SDK Framework and add it to the project. 
-6. Add StoreKit and AdSupport frameworks in target configuration under Build Phases->Link Binary With Libraries.
-7. Run the project on iOS device. 
+
+###Legal Requirements:
+----------------------------------
+You must accept the terms and conditions on the Manage web portal by registering in order to legally use the
+Manage Publisher SDK.
+
+###Contact Us: 
+----------------------------------
+For more information, please visit Manage.com.  For questions or support, please emails us at
+[support@appsponsor.com](mailto:support@appsponsor.com).
