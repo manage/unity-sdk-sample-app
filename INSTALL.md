@@ -1,7 +1,7 @@
-#UNITY INTEGRATION GUIDE
+# UNITY INTEGRATION GUIDE
 
 
-###Overview
+### Overview
 This guide provides integration instructions for the Manage Publisher SDK.  If you need support or have any questions, feel free to email us at [support@appsponsor.com](mailto:support@appsponsor.com)
 
 Requirements and Dependencies:  
@@ -9,34 +9,33 @@ Requirements and Dependencies:
 - Android version 2.3
 - iOS version 6.0
 
-###1. Download and Install the SDK
+### 1. Download and Install the SDK
 
 The SDK for Unity is available once you [sign up](https://appsponsor.com/user/registration).  The Manage SDK includes everything you need to serve full screen interstitial, video, and playable ad units.
 
-The SDK for Unity can be downloaded [here](https://appsponsor.com/downloads/appsponsorsdk_unity_3_1.zip).
+The SDK for Unity can be downloaded here: [ManageSDK-Unity-v3.1.zip](/downloads/ManageSDK-Unity-v3.1.unitypackage).
 
-For an example, please see our [sample app](https://github.com/manage/unity-sdk-sample-app).
+To see an example implementation, please see our [sample app](https://github.com/manage/unity-sdk-sample-app).
 
-###2. Import the Manage Publisher plugin into your project  
+### 2. Import the Manage Publisher plugin into your project  
 
 Unzip the Unity plugin zipfile into a directory.
 
 In the Unity editor, `Import Package` as a `Custom Package`.
 
-![](http://cdn.manage.com/appsponsor/documentation/unity/unity_installing_sdk_1.png)
+![](https://s3.amazonaws.com/cdn.manage.com/appsponsor/documentation/unity/unity_installing_sdk_1.png)
 
 Select **AppSponsorUnityPlugin.unitypackage**
 
-![](http://cdn.manage.com/appsponsor/documentation/unity/unity_installing_sdk_2.png)
+![](https://s3.amazonaws.com/cdn.manage.com/appsponsor/documentation/unity/unity_installing_sdk_2.png)
 
 Click the `Import` button to bring in all the files from the plugin
 
-![](http://cdn.manage.com/appsponsor/documentation/unity/unity_installing_sdk_3.png)
+![](https://s3.amazonaws.com/cdn.manage.com/appsponsor/documentation/unity/unity_installing_sdk_3.png)
 
 **NOTE: Please test on devices only. Ads will not show up in the Unity Editor or XCode simulators.**
 
-
-###3. Add Android support
+### 3. Add Android support
 
 Please update **Plugins/Android/AndroidManifest.xml** to add the necessary Manage Publisher activities and permissions as explained below:
 
@@ -55,34 +54,34 @@ Please update **Plugins/Android/AndroidManifest.xml** to add the necessary Manag
 </activity>
 ```
 
-###4. Add iOS support
+### 4. Add iOS support
 
-Please download our iOS SDK from the [iOS install guide](https://appsponsor.com/site/page/?view=install_iOS) section, `unzip it` and `add` *AppSponsorSDK.embeddedframework* into your project. Then add/set these frameworks:
+Please download our iOS SDK from the [iOS install guide](/html/iOS-SDK-v3.1-Guide.html).  Follow the steps in that guide to `add` *AppSponsorSDK.embeddedframework* into your project. Then add/set these frameworks:
 
-1. libz.dylib
-2. libstdc++.dylib
-3. AudioToolbox.framework
-4. QuartzCore.framework
-5. OpenGLES.framework
-6. Security.framework
-7. CFNetwork.framework
-8. Accelerate.framework
-9. SystemConfiguration.framework
-10. CoreMotion.framework
-11. CoreGraphics.framework
-12. UIKit.framework
-13. Foundation.framework
-14. AdSupport
-15. CoreLocation.framework
-16. StoreKit.framework
-
+*  libz.dylib
+*  libstdc++.dylib
+*  AudioToolbox.framework
+*  QuartzCore.framework
+*  OpenGLES.framework
+*  Security.framework
+*  CFNetwork.framework
+*  Accelerate.framework
+*  SystemConfiguration.framework
+*  CoreMotion.framework
+*  CoreGraphics.framework
+*  UIKit.framework
+*  Foundation.framework
+*  AdSupport.framework
+*  CoreLocation.framework
+*  CoreFoundation.framework
+*  StoreKit.framework 
 
 It should look similar to this:
 
-![](http://cdn.manage.com/appsponsor/documentation/unity/unity_installing_sdk_4.png)
+![](https://s3.amazonaws.com/cdn.manage.com/appsponsor/documentation/unity/unity_installing_sdk_4.png)
 
 
-###5. Adding AppSponsor
+### 5. Adding AppSponsor
 
 Declare the `AppSponsorPlugin` component class:
 
@@ -123,7 +122,7 @@ RegisterEvents();
 
 ```
 
-###5.1. Improve Ad Targeting by setting non PII user data:
+#### 5.1. Improve Ad Targeting by setting non PII user data:
 
 ```
 plugin.SetCity("");
@@ -141,7 +140,7 @@ plugin.SetKeywords("");
 
 If you would like to pre cache your ads follow steps in section 5.2.  Otherwise, if you would like to load ads synchronously for immediate presentation of an ad follow steps in section 5.3:
 
-####5.2 Pre-Cached Ads 
+#### 5.2 Pre-Cached Ads 
    
   Pre-cache ad:
 
@@ -158,7 +157,7 @@ if (plugin.IsReady()) {
 }
 ```
 
-####5.3 Load and Present Ad Synchronously
+#### 5.3 Load and Present Ad Synchronously
 
 To load and show ad:
 
@@ -167,11 +166,15 @@ plugin.LoadAndPresentAd();
 
 ```
 
+##### Select your Platform
+
 Note: Go to `File > Build Settings` and change the Platform accordingly:
 
-![](http://cdn.manage.com/appsponsor/documentation/unity/unity_installing_sdk_5.png)
+![](https://s3.amazonaws.com/cdn.manage.com/appsponsor/documentation/unity/unity_installing_sdk_5.png)
 
-###6. Listeners - Delegates
+### 6. Optional Steps
+
+#### 6.1 Register Events Listeners
 
 These are the listeners that you can implement to control your mobile application flow.
 
@@ -209,13 +212,14 @@ public void HandleDidCacheInterstitial(){
             plugin.PresentAd();
     }
     else {
-        Debug.Log("Popup Ad Is Not ready");
+        Debug.Log("Popup Ad is not ready");
     }
 }
 ```
 
+#### 6.1 Unregister Events Listeners
 
-Finally, when your view is completed, you can unregister any events in the `OnDestroy()` method:
+When your view is completed, you can unregister any events in the `OnDestroy()` method:
 
 ```
 void OnDestroy(){
