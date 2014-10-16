@@ -13,7 +13,7 @@ Requirements and Dependencies:
 
 The SDK for Unity is available once you [sign up](https://appsponsor.com/user/registration).  The Manage SDK includes everything you need to serve full screen interstitial, video, and playable ad units.
 
-The SDK for Unity can be downloaded here: [ManageSDK-Unity-v3.1.zip](/downloads/ManageSDK-Unity-v3.1.unitypackage).
+The SDK can be downloaded here: [ManageSDK-Unity-v3.1.zip](/downloads/ManageSDK-Unity-v3.1.unitypackage).
 
 To see an example implementation, please see our [sample app](https://github.com/manage/unity-sdk-sample-app).
 
@@ -46,7 +46,17 @@ Please update **Plugins/Android/AndroidManifest.xml** to add the necessary Manag
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+```
 
+Add the following meta data inside your `<application>` tag if have not already done so:
+
+```
+<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+```
+
+Declare these activities in your app manifest:
+
+```
 <activity android:name="com.appsponsor.appsponsorsdk.activity.PopupAdActivity" android:launchMode="singleTop" android:theme="@android:style/Theme.Translucent">
 </activity>
 
