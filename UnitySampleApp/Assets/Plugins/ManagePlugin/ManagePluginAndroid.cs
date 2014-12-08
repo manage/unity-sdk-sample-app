@@ -5,7 +5,7 @@ using System.Collections;
 using UnityEngine;
 
 
-public class AppSponsorPluginAndroid {
+public class ManagePluginAndroid {
 
 #if UNITY_ANDROID
 	private static Hashtable popupAds = new Hashtable();
@@ -182,5 +182,12 @@ public class AppSponsorPluginAndroid {
 		AndroidJavaObject pluginInstance = AppSponsorPluginAndroid.ResolveInstance(instanceId);
 		pluginInstance.Call("setKeywords", new object[1] {words});
 	}
+
+	public static void SetAdId(string instanceId, string adId)
+	{
+		AndroidJavaObject pluginInstance = AppSponsorPluginAndroid.ResolveInstance(instanceId);
+		pluginInstance.Call("setAdId", new object[1] {adId});
+	}
+
 #endif
 }

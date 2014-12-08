@@ -2,9 +2,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import <AppSponsorSDK/ASPopupAd.h>
+#import <ManageSDK/MNGInterstitialAd.h>
 
-@interface AppSponsorPlugin : NSObject
+@interface ManagePlugin : NSObject
 
 @property (nonatomic,retain) NSMutableDictionary *popupAdAdapters;
 

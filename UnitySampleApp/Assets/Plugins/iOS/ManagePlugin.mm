@@ -1,10 +1,10 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-#import "AppSponsorPlugin.h"
-#import <AppSponsorSDK/ASPopupAd.h>
+#import "ManagePlugin.h"
+#import <ManageSDK/MNGInterstitialAd.h>
 
-@interface AppSponsorPlugin() <CLLocationManagerDelegate>
+@interface ManagePlugin() <CLLocationManagerDelegate>
 {
     CLLocationManager *locationManager;
 }
@@ -12,29 +12,29 @@
 // Root view controller for Unity applications can be accessed using this
 // method.
 extern UIViewController *UnityGetGLViewController();
-+ (AppSponsorPlugin *)pluginSharedInstance;
-- (void)popoverWillAppearForPopupAd:(ASPopupAd*)ad;
-- (void)popoverOfPopupAd:(ASPopupAd*)ad willDisappearWithReason:(NSString*)reason;
-- (void)onRewardedAdFinishedForPopupAd:(ASPopupAd*)ad;
-- (void)interstitialCachedForPopupAd:(ASPopupAd*)ad;
-- (void)popupAd:(ASPopupAd*)ad didFailToLoadWithError:(NSError *)error;
++ (ManagePlugin *)pluginSharedInstance;
+- (void)popoverWillAppearForPopupAd:(MNGInterstitialAd*)ad;
+- (void)popoverOfPopupAd:(MNGInterstitialAd*)ad willDisappearWithReason:(NSString*)reason;
+- (void)onRewardedAdFinishedForPopupAd:(MNGInterstitialAd*)ad;
+- (void)interstitialCachedForPopupAd:(MNGInterstitialAd*)ad;
+- (void)popupAd:(MNGInterstitialAd*)ad didFailToLoadWithError:(NSError *)error;
 @end
 
 
 // TODO: this is an ugly workaround which could be fixed by refactoring AsPopupAd's delegate protocol
-@interface AppSponsorPluginDelegateAdapter:NSObject <ASPopupAdDelegate>
+@interface ManagePluginDelegateAdapter:NSObject <MNGInterstitialAdDelegate>
 {
 }
-@property (nonatomic, strong) ASPopupAd *popupAd;
-- (id)initWithPopupAd:(ASPopupAd*)ad;
+@property (nonatomic, strong) MNGInterstitialAd *popupAd;
+- (id)initWithPopupAd:(MNGInterstitialAd*)ad;
 // Root view controller for Unity applications can be accessed using this method.
 extern UIViewController *UnityGetGLViewController();
 
 @end
 
-@implementation AppSponsorPluginDelegateAdapter
+@implementation ManagePluginDelegateAdapter
 
-- (id)initWithPopupAd:(ASPopupAd*)ad
+- (id)initWithPopupAd:(MNGInterstitialAd*)ad
 {
     self = [super init];
     if(self)
@@ -47,42 +47,42 @@ extern UIViewController *UnityGetGLViewController();
 
 - (void)popoverWillAppear
 {
-    [[AppSponsorPlugin pluginSharedInstance] popoverWillAppearForPopupAd:self.popupAd];
+    [[ManagePlugin pluginSharedInstance] popoverWillAppearForPopupAd:self.popupAd];
 }
 
 - (void)popoverWillDisappear:(NSString*)reason
 {
-    [[AppSponsorPlugin pluginSharedInstance] popoverOfPopupAd:self.popupAd willDisappearWithReason:reason];
+    [[ManagePlugin pluginSharedInstance] popoverOfPopupAd:self.popupAd willDisappearWithReason:reason];
 }
 
 - (void)didCacheInterstitial
 {
-     [[AppSponsorPlugin pluginSharedInstance] interstitialCachedForPopupAd:self.popupAd];
+     [[ManagePlugin pluginSharedInstance] interstitialCachedForPopupAd:self.popupAd];
 }
 
 - (void)popoverDidFailToLoadWithError:(NSError*)error
 {
-    [[AppSponsorPlugin pluginSharedInstance] popupAd:self.popupAd didFailToLoadWithError:error];
+    [[ManagePlugin pluginSharedInstance] popupAd:self.popupAd didFailToLoadWithError:error];
 }
 
 - (void)onRewardedAdFinished
 {
-    [[AppSponsorPlugin pluginSharedInstance] onRewardedAdFinishedForPopupAd:self.popupAd];
+    [[ManagePlugin pluginSharedInstance] onRewardedAdFinishedForPopupAd:self.popupAd];
 }
 
 @end
 
 
-@implementation AppSponsorPlugin
+@implementation ManagePlugin
 
 #pragma mark Unity bridge
 
-+ (AppSponsorPlugin *)pluginSharedInstance
++ (ManagePlugin *)pluginSharedInstance
 {
-    static AppSponsorPlugin *sharedInstance = nil;
+    static ManagePlugin *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [[AppSponsorPlugin alloc] init];
+        sharedInstance = [[ManagePlugin alloc] init];
         sharedInstance.popupAdAdapters = [[NSMutableDictionary alloc] init];
     });
     return sharedInstance;
@@ -91,30 +91,30 @@ extern UIViewController *UnityGetGLViewController();
 - (void)createPopupAdwithZoneId:(NSString *)zoneId instanceId:(NSString*)instanceID
 {
     if (!zoneId) {
-        NSLog(@"AppSponsorPlugin: Failed because no zone ID is set.");
+        NSLog(@"ManagePlugin: Failed because no zone ID is set.");
         return;
     }
     
-    ASPopupAd *popupAd = [[[ASPopupAd alloc] initWithZoneId:zoneId] autorelease];
+    MNGInterstitialAd *popupAd = [[[MNGInterstitialAd alloc] initWithZoneId:zoneId] autorelease];
     popupAd.pf = @"1u";
     popupAd.parentController = UnityGetGLViewController();
     
-    AppSponsorPluginDelegateAdapter * adapter = [[AppSponsorPluginDelegateAdapter alloc] initWithPopupAd:popupAd];
+    ManagePluginDelegateAdapter * adapter = [[ManagePluginDelegateAdapter alloc] initWithPopupAd:popupAd];
     [self.popupAdAdapters setObject: adapter forKey:instanceID];
 }
 
 - (void)createRewardedAd:(NSString*)zoneId andUserID:(NSString*)uid instanceId:(NSString*)instanceID
 {
      if (!zoneId || !uid) {
-         NSLog(@"AppSponsorPlugin: Failed because no zone ID or UserID is set.");
+         NSLog(@"ManagePlugin: Failed because no zone ID or UserID is set.");
          return;
      }
      
-    ASPopupAd *popupAd = [[[ASPopupAd alloc] initRewardedAdWithZoneId:zoneId andUserID:uid] autorelease];
+    MNGInterstitialAd *popupAd = [[[MNGInterstitialAd alloc] initRewardedAdWithZoneId:zoneId andUserID:uid] autorelease];
     popupAd.pf = @"1u";
     popupAd.parentController = UnityGetGLViewController();
     
-    AppSponsorPluginDelegateAdapter * adapter = [[AppSponsorPluginDelegateAdapter alloc] initWithPopupAd:popupAd];
+    ManagePluginDelegateAdapter * adapter = [[ManagePluginDelegateAdapter alloc] initWithPopupAd:popupAd];
     [self.popupAdAdapters setObject: adapter forKey:instanceID];
 }
 
@@ -123,9 +123,9 @@ extern UIViewController *UnityGetGLViewController();
  */
 - (void)loadAdWithInstanceId:(NSString*)instanceID
 {
-   ASPopupAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
+   MNGInterstitialAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
     if (!popupAd) {
-        NSLog(@"AppSponsorPlugin: Failed because a popupAd was never created.");
+        NSLog(@"ManagePlugin: Failed because a popupAd was never created.");
         return;
     }
     [popupAd load];
@@ -133,9 +133,9 @@ extern UIViewController *UnityGetGLViewController();
 
 - (void)loadAndPresentAdWithInstanceId:(NSString*)instanceID
 {
-    ASPopupAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
+    MNGInterstitialAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
     if (!popupAd) {
-        NSLog(@"AppSponsorPlugin: Failed because a popupAd was never created.");
+        NSLog(@"ManagePlugin: Failed because a popupAd was never created.");
         return;
     }
     [popupAd loadAndPresentAd];
@@ -143,9 +143,9 @@ extern UIViewController *UnityGetGLViewController();
 
 - (void)loadAndPresentAdWithInstanceId:(NSString*)instanceID timeout:(NSString*)timeoutString
 {
-    ASPopupAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
+    MNGInterstitialAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
     if (!popupAd) {
-        NSLog(@"AppSponsorPlugin: Failed because a popupAd was never created.");
+        NSLog(@"ManagePlugin: Failed because a popupAd was never created.");
         return;
     }
     CGFloat timeout = [timeoutString floatValue];
@@ -166,9 +166,9 @@ extern UIViewController *UnityGetGLViewController();
  */
 - (void)presentAdWithInstanceId:(NSString*)instanceID
 {
-    ASPopupAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
+    MNGInterstitialAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
     if (!popupAd) {
-        NSLog(@"AppSponsorPlugin: Failed because a popupAd was never created.");
+        NSLog(@"ManagePlugin: Failed because a popupAd was never created.");
         return;
     }
     [popupAd presentAd];
@@ -176,9 +176,9 @@ extern UIViewController *UnityGetGLViewController();
 
 - (BOOL)isAdReadyWithInstanceId:(NSString*)instanceID
 {
-    ASPopupAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
+    MNGInterstitialAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
     if (!popupAd) {
-        NSLog(@"AppSponsorPlugin: Failed because a popupAd was never created.");
+        NSLog(@"ManagePlugin: Failed because a popupAd was never created.");
         return NO;
     }
     return [popupAd isReady];
@@ -186,9 +186,9 @@ extern UIViewController *UnityGetGLViewController();
 
 - (int)rewardedAdStatusForAdWithInstanceId:(NSString*)instanceID
 {
-    ASPopupAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
+    MNGInterstitialAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
     if (!popupAd) {
-        NSLog(@"AppSponsorPlugin: Failed because a popupAd was never created.");
+        NSLog(@"ManagePlugin: Failed because a popupAd was never created.");
         return 0;
     }
     return [popupAd rewardedAdStatus];
@@ -200,9 +200,9 @@ extern UIViewController *UnityGetGLViewController();
  */
 - (void)enableLocationForAdWithInstanceId:(NSString*)instanceID
 {
-    ASPopupAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
+    MNGInterstitialAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
     if (!popupAd) {
-        NSLog(@"AppSponsorPlugin: Failed because a popupAd was never created.");
+        NSLog(@"ManagePlugin: Failed because a popupAd was never created.");
         return;
     }
     
@@ -214,11 +214,20 @@ extern UIViewController *UnityGetGLViewController();
     [popupAd enableLocationSupport];
 }
 
+- (void)setAdId:(NSString*)adId forAdWithInstanceId:(NSString*)instanceID
+{
+    MNGInterstitialAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
+    if (!popupAd) {
+        NSLog(@"ManagePlugin: Failed because a popupAd was never created.");
+        return;
+    }
+    popupAd.adId = adId;
+}
 - (void)setExtras:(NSString*)extrasJson forAdWithInstanceId:(NSString*)instanceID
 {
-    ASPopupAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
+    MNGInterstitialAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
     if (!popupAd) {
-        NSLog(@"AppSponsorPlugin: Failed because a popupAd was never created.");
+        NSLog(@"ManagePlugin: Failed because a popupAd was never created.");
         return;
     }
     // Turn the incoming JSON string into a NSDictionary.
@@ -253,13 +262,13 @@ extern UIViewController *UnityGetGLViewController();
         if (value != nil) {
             Gender gender;
             if ([value caseInsensitiveCompare:@"male"] == NSOrderedSame) {
-                gender = AS_MALE;
+                gender = MNG_MALE;
             }
             else if ([value caseInsensitiveCompare:@"female"] == NSOrderedSame) {
-                gender = AS_FEMALE;
+                gender = MNG_FEMALE;
             }
             else if ([value caseInsensitiveCompare:@"other"] == NSOrderedSame) {
-                gender = AS_OTHER;
+                gender = MNG_OTHER;
             }
             if (gender)
                 popupAd.gender = &(gender);
@@ -297,7 +306,7 @@ extern UIViewController *UnityGetGLViewController();
             popupAd.pub_uid = value;
         }
     } else {
-        NSLog(@"AppSponsorPlugin: Error parsing JSON for extras: %@", error);
+        NSLog(@"ManagePlugin: Error parsing JSON for extras: %@", error);
     }
 }
 
@@ -305,16 +314,16 @@ extern UIViewController *UnityGetGLViewController();
 {
     if(!instanceID) return;
     
-    ASPopupAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
+    MNGInterstitialAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
     if(!popupAd) return;
     
     popupAd.delegate = nil;
     [self.popupAdAdapters removeObjectForKey:instanceID];
 }
 
-#pragma mark ASPopupAdDelegate implementation
+#pragma mark MNGInterstitialAdDelegate implementation
 
-- (void)popoverWillAppearForPopupAd:(ASPopupAd *)ad
+- (void)popoverWillAppearForPopupAd:(MNGInterstitialAd *)ad
 {
     NSArray * keys = [self.popupAdAdapters allKeysForObject:ad.delegate];
     if(keys.count == 0) return;
@@ -324,7 +333,7 @@ extern UIViewController *UnityGetGLViewController();
                      "");
 }
 
-- (void)popoverOfPopupAd:(ASPopupAd*)ad willDisappearWithReason:(NSString*)reason
+- (void)popoverOfPopupAd:(MNGInterstitialAd*)ad willDisappearWithReason:(NSString*)reason
 {
     NSArray * keys = [self.popupAdAdapters allKeysForObject:ad.delegate];
     if(keys.count == 0) return;
@@ -335,7 +344,7 @@ extern UIViewController *UnityGetGLViewController();
                      strdup([reason UTF8String]));
 }
 
-- (void)onRewardedAdFinishedForPopupAd:(ASPopupAd*)ad
+- (void)onRewardedAdFinishedForPopupAd:(MNGInterstitialAd*)ad
 {
     NSArray * keys = [self.popupAdAdapters allKeysForObject:ad.delegate];
     if(keys.count == 0) return;
@@ -345,7 +354,7 @@ extern UIViewController *UnityGetGLViewController();
                      "");
 }
 
-- (void)interstitialCachedForPopupAd:(ASPopupAd*)ad
+- (void)interstitialCachedForPopupAd:(MNGInterstitialAd*)ad
 {
     NSArray * keys = [self.popupAdAdapters allKeysForObject:ad.delegate];
     if(keys.count == 0) return;
@@ -353,7 +362,7 @@ extern UIViewController *UnityGetGLViewController();
     UnitySendMessage(strdup([keys[0] UTF8String]),"OnDidCacheInterstitial","");
 }
 
-- (void)popupAd:(ASPopupAd*)ad didFailToLoadWithError:(NSError *)error
+- (void)popupAd:(MNGInterstitialAd*)ad didFailToLoadWithError:(NSError *)error
 {
     NSArray * keys = [self.popupAdAdapters allKeysForObject:ad.delegate];
     if(keys.count == 0) return;
@@ -381,59 +390,64 @@ static NSString *CreateNSString(const char* string) {
 extern "C" {
     
     void _CreatePopupAd(const char *instanceId, const char *zoneId) {
-        AppSponsorPlugin *appSponsorPlugin = [AppSponsorPlugin pluginSharedInstance];
-        [appSponsorPlugin createPopupAdwithZoneId:CreateNSString(zoneId) instanceId:CreateNSString(instanceId)];
+        ManagePlugin *ManagePlugin = [ManagePlugin pluginSharedInstance];
+        [ManagePlugin createPopupAdwithZoneId:CreateNSString(zoneId) instanceId:CreateNSString(instanceId)];
     }
     
     void _CreateRewardedAd(const char *instanceId, const char *zoneId, const char *uid) {
-        AppSponsorPlugin *appSponsorPlugin = [AppSponsorPlugin pluginSharedInstance];
-        [appSponsorPlugin createRewardedAd:CreateNSString(zoneId) andUserID:CreateNSString(uid) instanceId:CreateNSString(instanceId)];
+        ManagePlugin *ManagePlugin = [ManagePlugin pluginSharedInstance];
+        [ManagePlugin createRewardedAd:CreateNSString(zoneId) andUserID:CreateNSString(uid) instanceId:CreateNSString(instanceId)];
     }
     
     void _Load(const char *instanceId) {
-        AppSponsorPlugin *appSponsorPlugin = [AppSponsorPlugin pluginSharedInstance];
-        [appSponsorPlugin loadAdWithInstanceId:CreateNSString(instanceId)];
+        ManagePlugin *ManagePlugin = [ManagePlugin pluginSharedInstance];
+        [ManagePlugin loadAdWithInstanceId:CreateNSString(instanceId)];
     }
     
     void _LoadAndPresentAd(const char *instanceId)
     {
-        AppSponsorPlugin *appSponsorPlugin = [AppSponsorPlugin pluginSharedInstance];
-        [appSponsorPlugin loadAndPresentAdWithInstanceId:CreateNSString(instanceId)];
+        ManagePlugin *ManagePlugin = [ManagePlugin pluginSharedInstance];
+        [ManagePlugin loadAndPresentAdWithInstanceId:CreateNSString(instanceId)];
     }
     
 	void _LoadAndPresentAdWithTimeout(const char *instanceId, const char *timeoutSeconds)
     {
-        AppSponsorPlugin *appSponsorPlugin = [AppSponsorPlugin pluginSharedInstance];
-        [appSponsorPlugin loadAndPresentAdWithInstanceId:CreateNSString(instanceId) timeout:CreateNSString(timeoutSeconds)];
+        ManagePlugin *ManagePlugin = [ManagePlugin pluginSharedInstance];
+        [ManagePlugin loadAndPresentAdWithInstanceId:CreateNSString(instanceId) timeout:CreateNSString(timeoutSeconds)];
     }
     
     void _PresentAd(const char *instanceId) {
-        AppSponsorPlugin *appSponsorPlugin = [AppSponsorPlugin pluginSharedInstance];
-        [appSponsorPlugin presentAdWithInstanceId:CreateNSString(instanceId)];
+        ManagePlugin *ManagePlugin = [ManagePlugin pluginSharedInstance];
+        [ManagePlugin presentAdWithInstanceId:CreateNSString(instanceId)];
     }
     
     bool _IsReady(const char *instanceId) {
-        AppSponsorPlugin *appSponsorPlugin = [AppSponsorPlugin pluginSharedInstance];
-        return [appSponsorPlugin isAdReadyWithInstanceId:CreateNSString(instanceId)];
+        ManagePlugin *ManagePlugin = [ManagePlugin pluginSharedInstance];
+        return [ManagePlugin isAdReadyWithInstanceId:CreateNSString(instanceId)];
     }
     
     int _RewardedAdStatus(const char *instanceId) {
-        AppSponsorPlugin *appSponsorPlugin = [AppSponsorPlugin pluginSharedInstance];
-        return [appSponsorPlugin rewardedAdStatusForAdWithInstanceId:CreateNSString(instanceId)];
+        ManagePlugin *ManagePlugin = [ManagePlugin pluginSharedInstance];
+        return [ManagePlugin rewardedAdStatusForAdWithInstanceId:CreateNSString(instanceId)];
     }
     
     void _EnableLocation(const char *instanceId) {
-        AppSponsorPlugin *appSponsorPlugin = [AppSponsorPlugin pluginSharedInstance];
-        [appSponsorPlugin enableLocationForAdWithInstanceId:CreateNSString(instanceId)];
+        ManagePlugin *ManagePlugin = [ManagePlugin pluginSharedInstance];
+        [ManagePlugin enableLocationForAdWithInstanceId:CreateNSString(instanceId)];
     }
     
     void _SetExtras(const char *instanceId, const char *extrasJson) {
-        AppSponsorPlugin *appSponsorPlugin = [AppSponsorPlugin pluginSharedInstance];
-        [appSponsorPlugin setExtras:CreateNSString(extrasJson) forAdWithInstanceId:CreateNSString(instanceId)];
+        ManagePlugin *ManagePlugin = [ManagePlugin pluginSharedInstance];
+        [ManagePlugin setExtras:CreateNSString(extrasJson) forAdWithInstanceId:CreateNSString(instanceId)];
+    }
+    
+    void _SetAdId(const char *instanceId, const char *extrasJson) {
+        ManagePlugin *ManagePlugin = [ManagePlugin pluginSharedInstance];
+        [ManagePlugin setAdId:CreateNSString(extrasJson) forAdWithInstanceId:CreateNSString(instanceId)];
     }
     
     void _Delete(const char *instanceId) {
-        AppSponsorPlugin *appSponsorPlugin = [AppSponsorPlugin pluginSharedInstance];
-        [appSponsorPlugin cleanupInstanceWithId:CreateNSString(instanceId)];
+        ManagePlugin *ManagePlugin = [ManagePlugin pluginSharedInstance];
+        [ManagePlugin cleanupInstanceWithId:CreateNSString(instanceId)];
     }
 }

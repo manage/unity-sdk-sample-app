@@ -22,7 +22,8 @@ public class AppSponsorPlugin : MonoBehaviour {
 	public event Action<string> WillDisappear = delegate {};
 	public event Action DidCacheInterstitial = delegate {};
 	public event Action RewardedAdFinished = delegate {};
-	
+
+
 	// Zone ID for current SDK instance
 	private string zoneId;
 	// Internal ID used to identify them
@@ -208,6 +209,11 @@ public class AppSponsorPlugin : MonoBehaviour {
 	public void SetKeywords(string words)
 	{
 		AppSponsorMobilePlugin.SetKeywords(instanceId, words);
+	}
+
+	public void SetAdId(string words)
+	{
+		AppSponsorMobilePlugin.SetAdId(instanceId, words);
 	}
 	
 	public void OnDestroy() 

@@ -8,6 +8,9 @@ public class AppSponsorPluginDemoScript : MonoBehaviour {
 	public string publicZoneIDAndroid;
 	public bool isRewarded;
 
+	public string publicAdIDiOS;
+	public string publicAdIDAndroid;
+
 	public GameObject consoleLabel;
 	
 	void OnClick()
@@ -39,6 +42,13 @@ public class AppSponsorPluginDemoScript : MonoBehaviour {
 		#endif
 		// NOTE: this is needed, so ads will be shown independently of location
 		plugin.SetExtras("{\"country\":\"USA\"}");
+
+		#if UNITY_ANDROID
+		if (publicAdIDAndroid != null) plugin.SetAdId(publicAdIDAndroid);
+		#elif UNITY_IPHONE
+		if (publicAdIDiOS != null) plugin.SetAdId(publicAdIDiOS);
+		#endif
+
 		RegisterForEvents();
 
 	}

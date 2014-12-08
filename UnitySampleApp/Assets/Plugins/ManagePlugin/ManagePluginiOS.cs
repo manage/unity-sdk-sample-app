@@ -26,6 +26,8 @@ public class AppSponsorPluginiOS {
 	[DllImport("__Internal")]
 	private static extern void _SetExtras(string instanceId, string extrasJson);
 	[DllImport("__Internal")]
+	private static extern void _SetAdId(string instanceId, string adId);
+	[DllImport("__Internal")]
 	private static extern void _Delete(string instanceId);
 
 	
@@ -82,6 +84,11 @@ public class AppSponsorPluginiOS {
 	public static void SetExtras(string instanceId, string extrasJson)
 	{
 		_SetExtras(instanceId, extrasJson);
+	}
+
+	public static void SetAdId(string instanceId, string adId)
+	{
+		_SetAdId(instanceId, adId);
 	}
 	
 	public static void SetCountry(string instanceId, string country)
