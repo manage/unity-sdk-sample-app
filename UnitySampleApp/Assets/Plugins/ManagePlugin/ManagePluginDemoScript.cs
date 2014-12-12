@@ -1,18 +1,22 @@
 using UnityEngine;
 
-// Example script showing how you can easily call into the AppSponsorPlugin.
-public class AppSponsorPluginDemoScript : MonoBehaviour {
+// Example script showing how you can easily call into the ManagePlugin.
+public class ManagePluginDemoScript : MonoBehaviour {
 	
-	AppSponsorPlugin plugin;
+	ManagePlugin plugin;
 	public string publicZoneIDiOS;
 	public string publicZoneIDAndroid;
 	public bool isRewarded;
+
+	public string publicAdIDiOS;
+	public string publicAdIDAndroid;
 
 	public GameObject consoleLabel;
 	
 	void OnClick()
 	{
 		plugin.LoadAndPresentAd(10000.0f);
+
 	}
 	
 	void ConsoleLog(string text)
@@ -28,7 +32,7 @@ public class AppSponsorPluginDemoScript : MonoBehaviour {
 	void Start()
 	{
 		ConsoleLog("Created plugin");
-		plugin = gameObject.AddComponent<AppSponsorPlugin>();
+		plugin = gameObject.AddComponent<ManagePlugin>();
 
 		#if UNITY_ANDROID
 		if (isRewarded) plugin.InitializeRewardedWithZoneId(publicZoneIDAndroid, "user");
@@ -38,14 +42,22 @@ public class AppSponsorPluginDemoScript : MonoBehaviour {
 		else plugin.InitializeWithZoneId(publicZoneIDiOS);
 		#endif
 		// NOTE: this is needed, so ads will be shown independently of location
+
 		plugin.SetExtras("{\"country\":\"USA\"}");
+
+		#if UNITY_ANDROID
+		if (publicAdIDAndroid != null) plugin.SetAdId(publicAdIDAndroid);
+		#elif UNITY_IPHONE
+		if (publicAdIDiOS != null) plugin.SetAdId(publicAdIDiOS);
+		#endif
+
 		RegisterForEvents();
 
 	}
 	
 	void RegisterForEvents()
 	{
-		Debug.Log("Registering for AppSponsor Events");
+		Debug.Log("Registering for Manage Events");
 		plugin.DidFailToLoad += HandleDidFailToLoad;
 		plugin.WillAppear += HandleWillAppear;
 		plugin.WillDisappear += HandleWillDisappear;
@@ -55,7 +67,7 @@ public class AppSponsorPluginDemoScript : MonoBehaviour {
 	
 	void OnDestroy()
 	{
-		Debug.Log("Unregistering for AppSponsor Events");
+		Debug.Log("Unregistering for Manage Events");
 		plugin.DidFailToLoad -= HandleDidFailToLoad;
 		plugin.WillAppear -= HandleWillAppear;
 		plugin.WillDisappear -= HandleWillDisappear;

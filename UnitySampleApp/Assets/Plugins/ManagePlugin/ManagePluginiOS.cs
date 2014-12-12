@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-public class AppSponsorPluginiOS {
+public class ManagePluginiOS {
 	
 	// These are the interface to native implementation calls for iOS.
 
@@ -25,6 +25,8 @@ public class AppSponsorPluginiOS {
 	private static extern void _EnableLocation(string instanceId);
 	[DllImport("__Internal")]
 	private static extern void _SetExtras(string instanceId, string extrasJson);
+	[DllImport("__Internal")]
+	private static extern void _SetAdId(string instanceId, string adId);
 	[DllImport("__Internal")]
 	private static extern void _Delete(string instanceId);
 
@@ -83,74 +85,79 @@ public class AppSponsorPluginiOS {
 	{
 		_SetExtras(instanceId, extrasJson);
 	}
+
+	public static void SetAdId(string instanceId, string adId)
+	{
+		_SetAdId(instanceId, adId);
+	}
 	
 	public static void SetCountry(string instanceId, string country)
 	{
-		AppSponsorPluginiOS.SetExtras(instanceId, "{'country':'"+country+"'}");
+		ManagePluginiOS.SetExtras(instanceId, "{'country':'"+country+"'}");
 	}	
 
 	public static void SetRegion(string instanceId, string region)
 	{
-		AppSponsorPluginiOS.SetExtras(instanceId, "{'region':'"+region+"'}");
+		ManagePluginiOS.SetExtras(instanceId, "{'region':'"+region+"'}");
 	}
 
 	public static void SetMetro(string instanceId, string metro)
 	{
-		AppSponsorPluginiOS.SetExtras(instanceId, "{'metro':'"+metro+"'}");
+		ManagePluginiOS.SetExtras(instanceId, "{'metro':'"+metro+"'}");
 	}
 
 	public static void SetCity(string instanceId, string city)
 	{
-		AppSponsorPluginiOS.SetExtras(instanceId, "{'city':'"+city+"'}");
+		ManagePluginiOS.SetExtras(instanceId, "{'city':'"+city+"'}");
 	}
 
 	public static void SetZip(string instanceId, string zip)
 	{
-		AppSponsorPluginiOS.SetExtras(instanceId, "{'zip':'"+zip+"'}");
+		ManagePluginiOS.SetExtras(instanceId, "{'zip':'"+zip+"'}");
 	}
 
 	public static void SetGender(string instanceId, string gender)
 	{
-		AppSponsorPluginiOS.SetExtras(instanceId, "{'gender':'"+gender+"'}");
+		ManagePluginiOS.SetExtras(instanceId, "{'gender':'"+gender+"'}");
 	}
 
 	public static void SetYob(string instanceId, string yob)
 	{
-		AppSponsorPluginiOS.SetExtras(instanceId, "{'yob':'"+yob+"'}");
+		ManagePluginiOS.SetExtras(instanceId, "{'yob':'"+yob+"'}");
 	}
 
 	public  static void SetUCountry(string instanceId, string country)
 	{
-		AppSponsorPluginiOS.SetExtras(instanceId, "{'u_country':'"+country+"'}");
+		ManagePluginiOS.SetExtras(instanceId, "{'u_country':'"+country+"'}");
 	}
 
 	public static void SetUCity(string instanceId, string city)
 	{
-		AppSponsorPluginiOS.SetExtras(instanceId, "{'u_city':'"+city+"'}");
+		ManagePluginiOS.SetExtras(instanceId, "{'u_city':'"+city+"'}");
 	}
 
 	public static void SetUZip(string instanceId, string zip)
 	{
-		AppSponsorPluginiOS.SetExtras(instanceId, "{'u_zip':'"+zip+"'}");
+		ManagePluginiOS.SetExtras(instanceId, "{'u_zip':'"+zip+"'}");
 	}
 
 	public static void SetLongitude(string instanceId, string longitude)
 	{
-		AppSponsorPluginiOS.SetExtras(instanceId, "{'longitude':'"+longitude+"'}");
+		ManagePluginiOS.SetExtras(instanceId, "{'longitude':'"+longitude+"'}");
 	}
 
 	public static void SetLatitude(string instanceId, string latitude)
 	{
-		AppSponsorPluginiOS.SetExtras(instanceId, "{'latitude':'"+latitude+"'}");
+		ManagePluginiOS.SetExtras(instanceId, "{'latitude':'"+latitude+"'}");
 	}
 
 	public static void SetUID(string instanceId, string uid)
 	{
-		AppSponsorPluginiOS.SetExtras(instanceId, "{'pub_uid':'"+uid+"'}");
+		ManagePluginiOS.SetExtras(instanceId, "{'pub_uid':'"+uid+"'}");
 	}
 
 	public static void SetKeywords(string instanceId, string words)
 	{
-		AppSponsorPluginiOS.SetExtras(instanceId, "{'keywords':'"+words+"'}");
+		ManagePluginiOS.SetExtras(instanceId, "{'keywords':'"+words+"'}");
 	}
 }

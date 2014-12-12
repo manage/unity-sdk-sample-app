@@ -1,4 +1,4 @@
-//AppSponsor Unity Plugin 1.1.8
+//Manage Unity Plugin 1.1.8
 using System;
 using System.ComponentModel;
 using System.Collections;
@@ -7,14 +7,14 @@ using UnityEngine;
 
 // This macros switches between Android and iOS implementations.
 #if UNITY_ANDROID
-using AppSponsorMobilePlugin = AppSponsorPluginAndroid;
+using ManageMobilePlugin = ManagePluginAndroid;
 #elif UNITY_IPHONE
-using AppSponsorMobilePlugin = AppSponsorPluginiOS;
+using ManageMobilePlugin = ManagePluginiOS;
 #else
-#error AppSponsor Unity plugin only supports iOS and Android currently. Please choose one of the above in File->Build settings->Platform
+#error Manage Unity plugin only supports iOS and Android currently. Please choose one of the above in File->Build settings->Platform
 #endif
 
-public class AppSponsorPlugin : MonoBehaviour {
+public class ManagePlugin : MonoBehaviour {
 	
 	// These are the ad callback events that can be hooked into.
 	public event Action<string> DidFailToLoad = delegate {};
@@ -22,7 +22,8 @@ public class AppSponsorPlugin : MonoBehaviour {
 	public event Action<string> WillDisappear = delegate {};
 	public event Action DidCacheInterstitial = delegate {};
 	public event Action RewardedAdFinished = delegate {};
-	
+
+
 	// Zone ID for current SDK instance
 	private string zoneId;
 	// Internal ID used to identify them
@@ -47,7 +48,7 @@ public class AppSponsorPlugin : MonoBehaviour {
 		name = instanceId;
 		Debug.Log("creating ad plugin, object name is:" + gameObject.name);
 		
-		AppSponsorMobilePlugin.CreatePopupAd(instanceId, zoneId);
+		ManageMobilePlugin.CreatePopupAd(instanceId, zoneId);
 	}
 	
 	// Same for rewarded ad
@@ -60,52 +61,52 @@ public class AppSponsorPlugin : MonoBehaviour {
 		name = instanceId;
 		Debug.Log("creating rewarded ad plugin object name is:" + gameObject.name);
 		
-		AppSponsorMobilePlugin.CreateRewardedAd(instanceId, zoneId, uid);
+		ManageMobilePlugin.CreateRewardedAd(instanceId, zoneId, uid);
 	}
 	
 	public void EnableLocation()
 	{
-		AppSponsorMobilePlugin.EnableLocation(instanceId);
+		ManageMobilePlugin.EnableLocation(instanceId);
 	}
 	
 	public void SetExtras(string extrasJson )
 	{
-		AppSponsorMobilePlugin.SetExtras(instanceId, extrasJson);
+		ManageMobilePlugin.SetExtras(instanceId, extrasJson);
 	}
 	
 	public void PresentAd()
 	{
-		AppSponsorMobilePlugin.PresentAd(instanceId);
+		ManageMobilePlugin.PresentAd(instanceId);
 	}
 	
 	// Load ad for the user.
 	public void Load()
 	{
-		AppSponsorMobilePlugin.Load(instanceId);
+		ManageMobilePlugin.Load(instanceId);
 	}
 
 	// Load and display ad for the user.
 	public void LoadAndPresentAd()
 	{
-		AppSponsorMobilePlugin.LoadAndPresentAd(instanceId);
+		ManageMobilePlugin.LoadAndPresentAd(instanceId);
 	}
 
 	// Load and display ad for the user. Loading will either succeed in time or fail.
 	public void LoadAndPresentAd(float timeoutSeconds)
 	{
-		AppSponsorMobilePlugin.LoadAndPresentAdWithCustomTimeout(instanceId, timeoutSeconds);
+		ManageMobilePlugin.LoadAndPresentAdWithCustomTimeout(instanceId, timeoutSeconds);
 	}
 
 	// Whether is Ad ready to be presented. Turns to true after DidCacheInterstitial().
 	public bool IsReady()
 	{
-		return AppSponsorMobilePlugin.IsReady(instanceId);
+		return ManageMobilePlugin.IsReady(instanceId);
 	}
 	
 	// Status of rewarded ad.
 	public int RewardedAdStatus()
 	{
-		return AppSponsorMobilePlugin.RewardedAdStatus(instanceId);
+		return ManageMobilePlugin.RewardedAdStatus(instanceId);
 	}
 	
 	// Callback section.
@@ -142,77 +143,82 @@ public class AppSponsorPlugin : MonoBehaviour {
 	// Following methods may be used to set targeting properties.
 	public void SetCountry(string country)
 	{
-		AppSponsorMobilePlugin.SetCountry(instanceId, country);
+		ManageMobilePlugin.SetCountry(instanceId, country);
 	}	
 	
 	public void SetRegion(string region)
 	{
-		AppSponsorMobilePlugin.SetRegion(instanceId, region);
+		ManageMobilePlugin.SetRegion(instanceId, region);
 	}
 	
 	public void SetMetro(string metro)
 	{
-		AppSponsorMobilePlugin.SetMetro(instanceId, metro);
+		ManageMobilePlugin.SetMetro(instanceId, metro);
 	}
 	
 	public void SetCity(string city)
 	{
-		AppSponsorMobilePlugin.SetCity(instanceId, city);
+		ManageMobilePlugin.SetCity(instanceId, city);
 	}
 	
 	public void SetZip(string zip)
 	{
-		AppSponsorMobilePlugin.SetZip(instanceId, zip);
+		ManageMobilePlugin.SetZip(instanceId, zip);
 	}
 	
 	public void SetGender(string gender)
 	{
-		AppSponsorMobilePlugin.SetGender(instanceId, gender);
+		ManageMobilePlugin.SetGender(instanceId, gender);
 	}
 	
 	public void SetYob(string yob)
 	{
-		AppSponsorMobilePlugin.SetYob(instanceId, yob);
+		ManageMobilePlugin.SetYob(instanceId, yob);
 	}
 	
 	public void SetUCountry(string country)
 	{
-		AppSponsorMobilePlugin.SetUCountry(instanceId, country);
+		ManageMobilePlugin.SetUCountry(instanceId, country);
 	}
 	
 	public void SetUCity(string city)
 	{
-		AppSponsorMobilePlugin.SetUCity(instanceId, city);
+		ManageMobilePlugin.SetUCity(instanceId, city);
 	}
 	
 	public void SetUZip(string zip)
 	{
-		AppSponsorMobilePlugin.SetUZip(instanceId, zip);
+		ManageMobilePlugin.SetUZip(instanceId, zip);
 	}
 	
 	public void SetLongitude(string longitude)
 	{
-		AppSponsorMobilePlugin.SetLongitude(instanceId, longitude);
+		ManageMobilePlugin.SetLongitude(instanceId, longitude);
 	}
 	
 	public void SetLatitude(string latitude)
 	{
-		AppSponsorMobilePlugin.SetLatitude(instanceId, latitude);
+		ManageMobilePlugin.SetLatitude(instanceId, latitude);
 	}
 	
 	public void SetUID(string uid)
 	{
-		AppSponsorMobilePlugin.SetUID(instanceId, uid);
+		ManageMobilePlugin.SetUID(instanceId, uid);
 	}
 	
 	public void SetKeywords(string words)
 	{
-		AppSponsorMobilePlugin.SetKeywords(instanceId, words);
+		ManageMobilePlugin.SetKeywords(instanceId, words);
+	}
+
+	public void SetAdId(string words)
+	{
+		ManageMobilePlugin.SetAdId(instanceId, words);
 	}
 	
 	public void OnDestroy() 
 	{
-		AppSponsorMobilePlugin.Delete(instanceId);
+		ManageMobilePlugin.Delete(instanceId);
 	}
 	
 }

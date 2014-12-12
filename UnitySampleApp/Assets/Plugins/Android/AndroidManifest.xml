@@ -15,10 +15,13 @@
       <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="false" />
     </activity>
     
-<activity android:name="com.appsponsor.appsponsorsdk.activity.PopupAdActivity"
+<activity android:name="com.manage.managesdk.activity.InterstitialAdActivity"
             android:launchMode="singleTop" android:theme="@android:style/Theme.Translucent">
 </activity>
-<activity android:name="com.appsponsor.appsponsorsdk.activity.VideoAdActivity"
+<activity android:name="com.manage.managesdk.activity.MraidAdActivity"
+            android:launchMode="singleTop" android:theme="@android:style/Theme.Translucent">
+</activity>
+<activity android:name="com.manage.managesdk.activity.VideoAdActivity"
             android:configChanges="keyboardHidden|orientation|screenSize">
 </activity>>
 
@@ -30,4 +33,8 @@
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+  <uses-permission android:name="android.permission.CALL_PHONE"/>
+  <uses-permission android:name="android.permission.SEND_SMS"/>
+  <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 </manifest>
