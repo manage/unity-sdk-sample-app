@@ -109,7 +109,7 @@ extern UIViewController *UnityGetGLViewController();
         NSLog(@"ManagePlugin: Failed because no zone ID or UserID is set.");
         return;
     }
-    
+
     MNGInterstitialAd *popupAd = [[[MNGInterstitialAd alloc] initRewardedAdWithZoneId:zoneId andUserID:uid] autorelease];
     popupAd.pf = @"1u";
     popupAd.parentController = UnityGetGLViewController();
@@ -123,6 +123,7 @@ extern UIViewController *UnityGetGLViewController();
  */
 - (void)loadAdWithInstanceId:(NSString*)instanceID
 {
+
     MNGInterstitialAd *popupAd = [[self.popupAdAdapters objectForKey:instanceID] popupAd];
     if (!popupAd) {
         NSLog(@"ManagePlugin: Failed because a popupAd was never created.");
@@ -408,6 +409,7 @@ extern "C" {
     {
         ManagePlugin *managePlugin = [ManagePlugin pluginSharedInstance];
         [managePlugin loadAndPresentAdWithInstanceId:CreateNSString(instanceId)];
+
     }
     
     void _LoadAndPresentAdWithTimeout(const char *instanceId, const char *timeoutSeconds)

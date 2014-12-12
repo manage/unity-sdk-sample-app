@@ -46,10 +46,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Plugins\AppSponsorPlugin\AppSponsorPlugin.cs" />
-     <Compile Include="Assets\Plugins\AppSponsorPlugin\AppSponsorPluginAndroid.cs" />
-     <Compile Include="Assets\Plugins\AppSponsorPlugin\AppSponsorPluginDemoScript.cs" />
-     <Compile Include="Assets\Plugins\AppSponsorPlugin\AppSponsorPluginiOS.cs" />
+     <Compile Include="Assets\Plugins\ManagePlugin\ManagePlugin.cs" />
+     <Compile Include="Assets\Plugins\ManagePlugin\ManagePluginAndroid.cs" />
+     <Compile Include="Assets\Plugins\ManagePlugin\ManagePluginDemoScript.cs" />
+     <Compile Include="Assets\Plugins\ManagePlugin\ManagePluginiOS.cs" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Depth Cutout.shader" />
      <None Include="Assets\NGUI\ReadMe - 3.5.0.txt" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text (SoftClip).shader" />
@@ -67,6 +67,7 @@
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Dynamic Font.shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored.shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text.shader" />
+     <None Include="Assets\Plugins\Android\res\values\version.xml" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed).shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Additive Colored.shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Depth.shader" />
