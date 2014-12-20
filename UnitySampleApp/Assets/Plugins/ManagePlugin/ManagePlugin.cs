@@ -216,11 +216,6 @@ public class ManagePlugin : MonoBehaviour {
 		ManageMobilePlugin.SetAdId(instanceId, words);
 	}
 
-	public void SetAdId(string words)
-	{
-		AppSponsorMobilePlugin.SetAdId(instanceId, words);
-	}
-	
 	public void OnDestroy() 
 	{
 		ManageMobilePlugin.Delete(instanceId);
