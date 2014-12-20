@@ -19,7 +19,7 @@
             android:launchMode="singleTop" android:theme="@android:style/Theme.Translucent">
 </activity>
 <activity android:name="com.manage.managesdk.activity.MraidAdActivity"
-            android:launchMode="singleTop" android:theme="@android:style/Theme.Translucent">
+             android:launchMode="singleTop" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:configChanges="orientation|screenSize">
 </activity>
 <activity android:name="com.manage.managesdk.activity.VideoAdActivity"
             android:configChanges="keyboardHidden|orientation|screenSize">
