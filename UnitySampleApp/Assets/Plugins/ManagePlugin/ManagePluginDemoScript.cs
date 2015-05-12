@@ -13,12 +13,22 @@ public class ManagePluginDemoScript : MonoBehaviour {
 
 	public GameObject consoleLabel;
 	
-	void OnClick()
+	public void LoadAndPresent()
 	{
 		plugin.LoadAndPresentAd(10000.0f);
 
 	}
-	
+
+	public void Load()
+	{
+		plugin.Load();
+	}
+
+	public void Present()
+	{
+		plugin.PresentAd();
+	}
+
 	void ConsoleLog(string text)
 	{
 		#if UNITY_ANDROID
