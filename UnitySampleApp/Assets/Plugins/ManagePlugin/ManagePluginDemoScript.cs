@@ -8,15 +8,11 @@ public class ManagePluginDemoScript : MonoBehaviour {
 	public string publicZoneIDAndroid;
 	public bool isRewarded;
 
-	public string publicAdIDiOS;
-	public string publicAdIDAndroid;
-
 	public GameObject consoleLabel;
 	
 	public void LoadAndPresent()
 	{
 		plugin.LoadAndPresentAd(10000.0f);
-
 	}
 
 	public void Load()
@@ -27,16 +23,6 @@ public class ManagePluginDemoScript : MonoBehaviour {
 	public void Present()
 	{
 		plugin.PresentAd();
-	}
-
-	void ConsoleLog(string text)
-	{
-		#if UNITY_ANDROID
-		if (consoleLabel != null) consoleLabel.SendMessage("AppendText", publicZoneIDAndroid.Substring(0,5) + ":    " + text, SendMessageOptions.DontRequireReceiver); 
-		#elif UNITY_IPHONE
-		if (consoleLabel != null) consoleLabel.SendMessage("AppendText", publicZoneIDiOS.Substring(0,5) + "    " + text, SendMessageOptions.DontRequireReceiver); 
-		#endif
-		Debug.Log(text);
 	}
 	
 	void Start()
@@ -51,18 +37,8 @@ public class ManagePluginDemoScript : MonoBehaviour {
 		if (isRewarded) plugin.InitializeRewardedWithZoneId(publicZoneIDiOS, "user"); 
 		else plugin.InitializeWithZoneId(publicZoneIDiOS);
 		#endif
-		// NOTE: this is needed, so ads will be shown independently of location
-
-		plugin.SetExtras("{\"country\":\"USA\"}");
-
-		#if UNITY_ANDROID
-		if (publicAdIDAndroid != null) plugin.SetAdId(publicAdIDAndroid);
-		#elif UNITY_IPHONE
-		if (publicAdIDiOS != null) plugin.SetAdId(publicAdIDiOS);
-		#endif
 
 		RegisterForEvents();
-
 	}
 	
 	void RegisterForEvents()
@@ -108,11 +84,15 @@ public class ManagePluginDemoScript : MonoBehaviour {
 	public void HandleDidCacheInterstitial()
 	{
 		ConsoleLog("DidCacheInterstitial");
-		/*if (plugin.IsReady()) 
-		{
-			ConsoleLog("Presenting Popup Ad");
-			plugin.PresentAd();
-		}
-		else ConsoleLog("Popup Ad Is Not ready");*/
 	}
+	void ConsoleLog(string text)
+	{
+		#if UNITY_ANDROID
+		if (consoleLabel != null) consoleLabel.SendMessage("AppendText", publicZoneIDAndroid.Substring(0,5) + ":    " + text, SendMessageOptions.DontRequireReceiver); 
+		#elif UNITY_IPHONE
+		if (consoleLabel != null) consoleLabel.SendMessage("AppendText", publicZoneIDiOS.Substring(0,5) + "    " + text, SendMessageOptions.DontRequireReceiver); 
+		#endif
+		Debug.Log(text);
+	}
+
 }
