@@ -1,10 +1,9 @@
-##Manage Unity SDK
-
+##Manage Unity SDK Sample App
 
 This is the Manage Publisher Mobile Ads SDK for Unity Android/iOS
 
-Modified: 2014/10
-SDK Version: 3.1
+Modified: 2015/05
+SDK Version: 3.2
 
 ###Contains:
 ----------------------------------
@@ -20,6 +19,13 @@ SDK Version: 3.1
 * Runs only devices with iOS 6.0 or higher
 * Google Play Services
 * Unity 4.x
+
+###3.2 Change Log:
+----------------------------------
+* Reduced file size
+* Support for MRAID
+* Support for video end cards
+* Latest "Experience Ad" technology
 
 ###3.1 Change Log:
 ----------------------------------
