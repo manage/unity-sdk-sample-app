@@ -4,8 +4,12 @@ using UnityEngine;
 public class ManagePluginDemoScript : MonoBehaviour {
 	
 	ManagePlugin plugin;
-	public string publicZoneIDiOS;
-	public string publicZoneIDAndroid;
+	string publicZoneIDiOS;
+	string publicZoneIDAndroid;
+
+	public string publicAdIDiOS;
+	public string publicAdIDAndroid;
+
 	public bool isRewarded;
 
 	public GameObject consoleLabel;
@@ -30,12 +34,18 @@ public class ManagePluginDemoScript : MonoBehaviour {
 		ConsoleLog("Created plugin");
 		plugin = gameObject.AddComponent<ManagePlugin>();
 
+		publicZoneIDAndroid = "tXZP9-o_BOzbhCNZaxy3hw";
+		publicZoneIDiOS = "KvFiTBr2lE5R6y-3RvAcnw";
+
 		#if UNITY_ANDROID
 		if (isRewarded) plugin.InitializeRewardedWithZoneId(publicZoneIDAndroid, "user");
 		else plugin.InitializeWithZoneId(publicZoneIDAndroid);
+		plugin.SetAdId(publicAdIDAndroid);
+
 		#elif UNITY_IPHONE
 		if (isRewarded) plugin.InitializeRewardedWithZoneId(publicZoneIDiOS, "user"); 
 		else plugin.InitializeWithZoneId(publicZoneIDiOS);
+		plugin.SetAdId(publicAdIDiOS);
 		#endif
 
 		RegisterForEvents();
